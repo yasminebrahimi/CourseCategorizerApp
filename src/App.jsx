@@ -2,10 +2,9 @@ import "./App.css";
 import CourseList from "./components/CourseList"; 
 
 
-const courses = [
 
-]; 
- 
+
+
 function App() {
     return (
         <div>
