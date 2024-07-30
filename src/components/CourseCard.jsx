@@ -1,49 +1,67 @@
-
-
-import React from 'react'
-
-
-
-function CourseCard(props) {
-    console.log(props.course);  
-  return (
-    <div key={course.id} className="course-list">
-<div className="course-item">
-<div className="course-item__img">
-<img src="images/img1.jpg" alt="image-1" />
-</div>
-<div className="course-item__detail">
-    <div className="course-item__body">
-        <div>
-            <p className="title">{props.course.title}</p>
-            <p className="decs">{props.course.description}</p>
+function CourseCard({ course }) {
+    return (
+      <div className="course-item">
+        <div className="course-item__img">
+          <img src={course.imageUrl} alt={course.title} />
         </div>
-        <span className="rate">4</span>
-    </div>
-    <div className="course-item-footer">
+        <div className="course-item__detail">
+          <CourseCardBody
+            description={course.description}
+            title={course.title}
+            rate={course.rate}
+          />
+          <CourseCardFooter course={course} />
+        </div>
+      </div>
+    );
+  }
+  
+  export default CourseCard;
+  
+  function CourseCardBody({ title, description, rate }) {
+    return (
+      <div className="course-item__body">
+        <div>
+          <p className="title">{title}</p>
+          <p className="desc"> {description}</p>
+        </div>
+        <span className="rate"> ⭐️ {rate} </span>
+      </div>
+    );
+  }
+  
+  function CourseCardFooter({ course }) {
+  
+    const startedAt = new Date(course.start).toLocaleDateString("en-US", {
+      month: "short",
+      year: "numeric",
+      day: "numeric",
+    });
+  
+    return (
+      <div className="course-item__footer">
         <div className="tags">
-            {
-                props.course.tags.map(t => 
-                <span className="badge badge--secondary">
-                    React.js
-                    </span>)
-            }
+          {course.tags.map((t) => (
+            <span key={t} className="badge badge--secondary">
+              React.js
+            </span>
+          ))}
         </div>
         <div className="caption">
-            <div className="date">
-                {new Date(props.course.start).toLocaleDateString("en-US", {
-                month: "short", 
-                year: "numeric", 
-                day: "numeric", 
-            })}
-            </div>
-            <span className="badge badge--primary">{props.course.status}</span>
+          <div className="date">{startedAt}</div>
+          <span
+            className={`badge ${
+              course.status === "Active"
+                ? "badge--primary"
+                : course.status === "Upcoming"
+                ? "badge--danger"
+                : "badge--secondary"
+            }`}
+          >
+            {course.status}
+          </span>
         </div>
-    </div>
-</div>  
-</div>
-            </div>
-  )
-}
-
-export default CourseCard
+      </div>
+    );
+  }
+  
