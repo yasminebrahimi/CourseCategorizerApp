@@ -4,7 +4,8 @@ import React from 'react'
 
 
 
-function CourseCard() {
+function CourseCard(props) {
+    console.log(props.course);  
   return (
     <div key={course.id} className="course-list">
 <div className="course-item">
@@ -14,24 +15,29 @@ function CourseCard() {
 <div className="course-item__detail">
     <div className="course-item__body">
         <div>
-            <p className="title">React.js Course</p>
-            <p className="decs"> The Ultimate React and Redux Course</p>
+            <p className="title">{props.course.title}</p>
+            <p className="decs">{props.course.description}</p>
         </div>
         <span className="rate">4</span>
     </div>
     <div className="course-item-footer">
         <div className="tags">
-            <span className="badge badge--secondary">React.js</span>
-            <span className="badge badge--secondary">Frontend</span>
+            {
+                props.course.tags.map(t => 
+                <span className="badge badge--secondary">
+                    React.js
+                    </span>)
+            }
         </div>
         <div className="caption">
-            <div className="date">{new Date().toLocaleDateString("en-US", {
+            <div className="date">
+                {new Date(props.course.start).toLocaleDateString("en-US", {
                 month: "short", 
                 year: "numeric", 
                 day: "numeric", 
             })}
             </div>
-            <span className="badge badge--primary">Completed</span>
+            <span className="badge badge--primary">{props.course.status}</span>
         </div>
     </div>
 </div>  
